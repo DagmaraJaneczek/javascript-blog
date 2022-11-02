@@ -58,7 +58,7 @@ function generateTitleLinks(){
 
   let html ='';
 
-  for (let article of articles){
+  for (let article of articles) {
 
     /* [DONE] get the article id */
     const articleId = article.getAttribute('id');
@@ -95,7 +95,7 @@ function generateTags(){
 
   /* START LOOP: for every article: */
 
-  for (let article of articles) {
+  for(let article of articles) {
 
   /* find tags wrapper */
 
@@ -107,13 +107,22 @@ function generateTags(){
 
   /* get tags from data-tags attribute */
 
-  const tags  = article.getAttribute('data-tags');
+  const articleTags  = article.getAttribute('data-tags');
+  console.log(articleTags);
 
   /* split tags into array */
 
+  const articleTagsArray = articleTags.split(' ');
+  console.log(articleTagsArray);
+  }
   /* START LOOP: for each tag */
 
+  for(let tag of articleTagsArray){
+
   /* generate HTML of the link */
+
+  const linkHTML = '<li><a href="#tag-' + articleTags + '"></a></li>';
+  console.log(linkHTML);
 
   /* add generated code to html variable */
 
@@ -122,6 +131,7 @@ function generateTags(){
   /* insert HTML of all the links into the tags wrapper */
 
   /* END LOOP: for every article: */
-}
+ }
+
 
 generateTags();
