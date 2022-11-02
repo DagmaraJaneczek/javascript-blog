@@ -6,7 +6,7 @@ function titleClickHandler(event){
   console.log('Link was clicked!');
   console.log(event);
 
-    
+
   /* [DONE] remove class 'active' from all article links  */
 
   const activeLinks = document.querySelectorAll('.titles a.active');
@@ -14,7 +14,7 @@ function titleClickHandler(event){
   for(let activeLink of activeLinks){
     activeLink.classList.remove('active');
   }
-    
+
   /* [DONE] add class 'active' to the clicked link */
   console.log('clickedElement:', clickedElement);
   clickedElement.classList.add('active');
@@ -31,19 +31,20 @@ function titleClickHandler(event){
 
   const articleSelector = clickedElement.getAttribute('href');
 
-    
+
   /* [DONE] find the correct article using the selector (value of 'href' attribute) */
 
   const targetArticle = document.querySelector(articleSelector);
-    
+
   /* [DONE] add class 'active' to the correct article */
-    
+
   targetArticle.classList.add('active');
 }
-  
+
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
-  optTitleListSelector = '.titles';
+  optTitleListSelector = '.titles',
+  optArticleTagsSelector = '.post-tags.list';
 
 
 function generateTitleLinks(){
@@ -86,3 +87,41 @@ function generateTitleLinks(){
 }
 
 generateTitleLinks();
+
+
+function generateTags(){
+  /* find all articles */
+  const articles = document.querySelectorAll(optArticleSelector);
+
+  /* START LOOP: for every article: */
+
+  for (let article of articles) {
+
+  /* find tags wrapper */
+
+  const titleList = article.querySelector(optArticleTagsSelector);
+  titleList.innerHTML = '';
+  /* make html variable with empty string */
+
+  let html ='';
+
+  /* get tags from data-tags attribute */
+
+  const tags  = article.getAttribute('data-tags');
+
+  /* split tags into array */
+
+  /* START LOOP: for each tag */
+
+  /* generate HTML of the link */
+
+  /* add generated code to html variable */
+
+  /* END LOOP: for each tag */
+
+  /* insert HTML of all the links into the tags wrapper */
+
+  /* END LOOP: for every article: */
+}
+
+generateTags();
