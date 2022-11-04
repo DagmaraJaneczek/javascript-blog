@@ -43,7 +43,8 @@ function titleClickHandler(event){
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
-  optArticleTagsSelector = '.post-tags .list';
+  optArticleTagsSelector = '.post-tags .list',
+  optArticleAuthorSelector ='.post-author';
 
 
 function generateTitleLinks() {
@@ -205,6 +206,8 @@ function tagClickHandler(event) {
 
 tagClickHandler();
 
+
+
 //Add authors to artickels
 
 function generateAuthors() {
@@ -216,43 +219,25 @@ function generateAuthors() {
 
   for (let article of articles) {
 
-    /* [DONE] find tags wrapper */
+    /* [DONE] find author wrapper */
 
-    const tagsWrapper = article.querySelector(optArticleTagsSelector);
-    tagsWrapper.innerHTML = '';
+    const authorWrapper = article.querySelector(optArticleAuthorSelector);
+    authorWrapper.innerHTML = html;
 
     /* [DONE] make html variable with empty string */
 
     let html ='';
 
-    /* [DONE] get tags from data-tags attribute */
+    /* [DONE] get author from data-author attribute */
 
-    const articleTags  = article.getAttribute('data-tags');
-    console.log(articleTags);
+    const articleAuthor  = article.getAttribute('data-author');
 
-    /* [DONE] split tags into array */
-
-    const articleTagsArray = articleTags.split(' ');
-    console.log(articleTagsArray);
-
-    /* [DONE] START LOOP: for each tag */
-
-    for(let tag of articleTagsArray) {
-
-      /* [DONE] generate HTML of the link */
-
-      const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
-      console.log(linkHTML);
-
-      /* [DONE] add generated code to html variable */
-      html = html + linkHTML;
+    /* [DONE] generate HTML of the link */
+    const authorlinkHTML = '<li><a href="#tag-' + articleAuthor + '">' + articleAuthor + '</a></li>';
+    /* [DONE] add generated code to html variable */
+    html = html + authorlinkHTML;
     /* END LOOP: for each tag */
-    }
-    /* [DONE] insert HTML of all the links into the tags wrapper */
-    tagsWrapper.innerHTML = html;
-  /* [DONE] END LOOP: for every article: */
   }
 }
+
 generateAuthors();
-
-
