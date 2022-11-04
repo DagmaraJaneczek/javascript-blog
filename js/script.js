@@ -140,6 +140,7 @@ generateTags();
 function tagClickHandler(event) {
 
   /* [DONE] prevent default action for this event */
+
   event.preventDefault();
 
   /* [DONE] make new constant named "clickedElement" and give it the value of "this" */
@@ -203,4 +204,55 @@ function tagClickHandler(event) {
 }
 
 tagClickHandler();
+
+//Add authors to artickels
+
+function generateAuthors() {
+
+  /* [DONE] find all articles */
+  const articles = document.querySelectorAll(optArticleSelector);
+
+  /* [DONE] START LOOP: for every article: */
+
+  for (let article of articles) {
+
+    /* [DONE] find tags wrapper */
+
+    const tagsWrapper = article.querySelector(optArticleTagsSelector);
+    tagsWrapper.innerHTML = '';
+
+    /* [DONE] make html variable with empty string */
+
+    let html ='';
+
+    /* [DONE] get tags from data-tags attribute */
+
+    const articleTags  = article.getAttribute('data-tags');
+    console.log(articleTags);
+
+    /* [DONE] split tags into array */
+
+    const articleTagsArray = articleTags.split(' ');
+    console.log(articleTagsArray);
+
+    /* [DONE] START LOOP: for each tag */
+
+    for(let tag of articleTagsArray) {
+
+      /* [DONE] generate HTML of the link */
+
+      const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      console.log(linkHTML);
+
+      /* [DONE] add generated code to html variable */
+      html = html + linkHTML;
+    /* END LOOP: for each tag */
+    }
+    /* [DONE] insert HTML of all the links into the tags wrapper */
+    tagsWrapper.innerHTML = html;
+  /* [DONE] END LOOP: for every article: */
+  }
+}
+generateAuthors();
+
 
