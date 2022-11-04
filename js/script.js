@@ -1,6 +1,6 @@
 'use strict';
 
-function titleClickHandler(event){
+function titleClickHandler(event) {
   event.preventDefault();
   const clickedElement = this;
   console.log('Link was clicked!');
@@ -40,11 +40,19 @@ function titleClickHandler(event){
   targetArticle.classList.add('active');
 }
 
+
+
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
-  optArticleAuthorSelector ='.post-author';
+  optArticleAuthorSelector ='.post-author',
+  optTagsListSelector ='.tags .list';
+
+
+
+//Generating Title List -generujemy liste tytolow:
+
 
 
 function generateTitleLinks() {
@@ -53,7 +61,7 @@ function generateTitleLinks() {
   const titleList = document.querySelector(optTitleListSelector);
   titleList.innerHTML = '';
 
-  /*[IN PROGRESS] for each article */
+  /*[DONE] for each article */
   const articles = document.querySelectorAll(optArticleSelector);
 
   let html ='';
@@ -81,12 +89,16 @@ function generateTitleLinks() {
   const links = document.querySelectorAll('.titles a');
   console.log(links);
 
-  for(let link of links){
+  for(let link of links) {
     link.addEventListener('click', titleClickHandler);
   }
 }
 
 generateTitleLinks();
+
+
+//GENERATE TAGS -Generujemy tagi:
+
 
 
 function generateTags() {
@@ -115,6 +127,8 @@ function generateTags() {
     /* [DONE] split tags into array */
 
     const articleTagsArray = articleTags.split(' ');
+    //rice rissotto sushi cabbage_rolls -> ['rice', 'rissotto', 'sushi', 'cabbage_rolls'];
+    //rozdzielamy tagi
     console.log(articleTagsArray);
 
     /* [DONE] START LOOP: for each tag */
@@ -124,6 +138,7 @@ function generateTags() {
       /* [DONE] generate HTML of the link */
 
       const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      //<li><a href="#tag-rice">rice</a></li>
       console.log(linkHTML);
 
       /* [DONE] add generated code to html variable */
@@ -188,23 +203,26 @@ function tagClickHandler(event) {
 
   generateTitleLinks('[data-tags~="' + tag + '"]');
 
+}
+
+function addClickListenersToTags() {
   /* [DONE] find all links to tags */
 
-  const allLinksToTags = document.querySelectorAll('a.active[href^="#tag-"]');
+  const allLinksToTags = document.querySelectorAll('a.[href^="#tag-"]');
 
   /* [DONE] START LOOP: for each link */
 
-  for (let link of allLinksToTags){
+  for (let allLinksToTag of allLinksToTags) {
 
     /* [DONE] add tagClickHandler as event listener for that link */
 
-    link.addEventListener('click', tagClickHandler);
+    allLinksToTag.addEventListener('click', tagClickHandler);
 
   /* [DONE] END LOOP: for each link */
   }
 }
 
-tagClickHandler();
+addClickListenersToTags();
 
 
 
@@ -241,3 +259,52 @@ function generateAuthors() {
 }
 
 generateAuthors();
+
+//Wyswietlenie listy tagow:
+
+function generateTags(){
+  /* [NEW] create a new variable allTags with an empty array (z pusta tablica) */
+  let allTags = [];
+
+  /* [DONE] find all articles */
+  const artickels = document.querySelector(optArticleSelector);
+
+  /* [DONE] START LOOP: for every article: */
+
+  for (let article of artickels){
+
+    /* [DONE] find tags wrapper */
+    const tagsWrapper = article.querySelector(optArticleTagsSelector);
+    tagsWrapper.innerHTML = '';
+
+    /* [DONE] make html variable with empty string */
+    let html ='';
+    /* [DONE] get tags from data-tags attribute */
+    const articleTags  = article.getAttribute('data-tags');
+    console.log(articleTags);
+    /* [DONE] split tags into array */
+    const articleTagsArray = articleTags.split(' ');
+    console.log(articleTagsArray);
+    /* START LOOP: for each tag */
+    for(let tag of articleTagsArray) {
+    /* generate HTML of the link */
+      const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      console.log(linkHTML);
+      /* add generated code to html variable */
+      html = html + linkHTML;
+      /* [NEW] check if this link is NOT already in allTags */
+      if(allTags.indexOf(linkHTML) == -1){
+      /* [NEW] add generated code to allTags array */
+        allTags.push(linkHTML);
+      }
+    /* END LOOP: for each tag */
+    }
+    /* insert HTML of all the links into the tags wrapper */
+    tagsWrapper.innerHTML = html;
+  /* END LOOP: for every article: */
+  }
+  /* [NEW] find list of tags in right column */
+  const tagList = document.querySelector(optTagsListSelector);
+  /* [NEW] add html from allTags to tagList */
+  tagList.innerHTML = allTags.join(' ');
+}
