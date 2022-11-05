@@ -47,13 +47,31 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector ='.post-author',
-  optTagsListSelector ='.tags .list';
+  optTagsListSelector ='.tags .list',
+  optCloudClassCount = '5',
+  optCloudClassPrefix = 'tag-size-';
 
+
+// Calculate tags parameters - znajdujemy najwieksza i najmniejsza liczbe wystapien tagow:
+
+function calculateTagsParams(tags) {
+  const params = {max: 0, min: 999999};
+
+  for(let tag in tags) {
+    if (tags[tag] > params.max) {
+      params.max = tags[tag];
+    }
+    else (tags[tag] < params.min); {
+      params.min =tags[tag];
+    }
+  }
+  return params;
+}
+
+// Calculate tag class -wybieramy klase dla tagu:
 
 
 //Generating Title List -generujemy liste tytolow:
-
-
 
 function generateTitleLinks() {
 
@@ -168,6 +186,8 @@ function generateTags() {
   const tagList = document.querySelector(optTagsListSelector);
 
   /*[NEW]create variable for all links HTML code*/
+  const tagsParams = calculateTagsParams(allTags);
+  console.log('tagsParams:', tagsParams);
   let allTagsHTML = '';
 
   /* [NEW] START LOOP: for each tag in allTags: */
