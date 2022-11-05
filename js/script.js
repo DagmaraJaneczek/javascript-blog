@@ -1,11 +1,21 @@
 'use strict';
 
+const opts = {
+  articleSelector: '.post',
+  titleSelector: '.post-title',
+  titleListSelector: '.titles',
+  articleTagsSelector: '.post-tags .list',
+  articleAuthorSelector: '.post-author',
+  tagsListSelector: '.tags .list',
+  cloudClassCount: 5,
+  cloudClassPrefix: 'tag-size-'
+};
+
+
+
 function titleClickHandler(event) {
   event.preventDefault();
   const clickedElement = this;
-  console.log('Link was clicked!');
-  console.log(event);
-
 
   /* [DONE] remove class 'active' from all article links  */
 
@@ -41,15 +51,48 @@ function titleClickHandler(event) {
 }
 
 
+//Generating Title List -generujemy liste tytolow:
 
-const optArticleSelector = '.post',
-  optTitleSelector = '.post-title',
-  optTitleListSelector = '.titles',
-  optArticleTagsSelector = '.post-tags .list',
-  optArticleAuthorSelector ='.post-author',
-  optTagsListSelector ='.tags .list',
-  optCloudClassCount = '5',
-  optCloudClassPrefix = 'tag-size-';
+function generateTitleLinks() {
+
+  /* [DONE] remove contents of titleList */
+  const titleList = document.querySelector(opts.titleListSelector);
+  titleList.innerHTML = '';
+
+  /*[DONE] for each article */
+  const articles = document.querySelectorAll(opts.articleSelector);
+
+  let html ='';
+
+  for (let article of articles) {
+
+    /* [DONE] get the article id */
+    const articleId = article.getAttribute('id');
+
+    /*[DONE] find the title element */
+    /*[DONE] get the title from the title element */
+    const articleTitle = article.querySelector(opts.titleSelector).innerHTML;
+
+    /*[DONE] create HTML of the link */
+    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    console.log(linkHTML);
+
+    /*[DONE] insert link into titleList */
+    html = html +linkHTML;
+  }
+  console.log(html);
+
+  titleList.innerHTML = html;
+
+  const links = document.querySelectorAll('.titles a');
+  console.log(links);
+
+  for(let link of links) {
+    link.addEventListener('click', titleClickHandler);
+  }
+}
+
+generateTitleLinks();
 
 
 // Calculate tags parameters - znajdujemy najwieksza i najmniejsza liczbe wystapien tagow:
@@ -75,58 +118,13 @@ function calculateTagClass(count, params){
   const normalizedCount = count - params.min;
   const normalizedMax = params.max - params.min;
   const percentage = normalizedCount / normalizedMax;
-  const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+  const classNumber = Math.floor( percentage * (opts.cloudClassCount - 1) + 1 );
   console.log('classNumber');
-  return optCloudClassPrefix + classNumber;
+  return opts.cloudClassPrefix + classNumber;
 }
-
-//Generating Title List -generujemy liste tytolow:
-
-function generateTitleLinks() {
-
-  /* [DONE] remove contents of titleList */
-  const titleList = document.querySelector(optTitleListSelector);
-  titleList.innerHTML = '';
-
-  /*[DONE] for each article */
-  const articles = document.querySelectorAll(optArticleSelector);
-
-  let html ='';
-
-  for (let article of articles) {
-
-    /* [DONE] get the article id */
-    const articleId = article.getAttribute('id');
-
-    /*[DONE] find the title element */
-    /*[DONE] get the title from the title element */
-    const articleTitle = article.querySelector(optTitleSelector).innerHTML;
-
-    /*[DONE] create HTML of the link */
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
-    console.log(linkHTML);
-
-    /*[DONE] insert link into titleList */
-    html = html +linkHTML;
-  }
-  console.log(html);
-
-  titleList.innerHTML = html;
-
-  const links = document.querySelectorAll('.titles a');
-  console.log(links);
-
-  for(let link of links) {
-    link.addEventListener('click', titleClickHandler);
-  }
-}
-
-generateTitleLinks();
 
 
 //GENERATE TAGS -Generujemy tagi:
-
-
 
 function generateTags() {
 
@@ -134,7 +132,7 @@ function generateTags() {
   let allTags = {};
 
   /* [DONE] find all articles */
-  const articles = document.querySelectorAll(optArticleSelector);
+  const articles = document.querySelectorAll(opts.articleSelector);
 
   /* [DONE] START LOOP: for every article: */
 
@@ -142,7 +140,7 @@ function generateTags() {
 
     /* [DONE] find tags wrapper */
 
-    const tagsWrapper = article.querySelector(optArticleTagsSelector);
+    const tagsWrapper = article.querySelector(opts.articleTagsSelector);
     tagsWrapper.innerHTML = '';
 
     /* [DONE] make html variable with empty string */
@@ -192,7 +190,7 @@ function generateTags() {
   }
 
   /* [NEW] find list of tags in right column */
-  const tagList = document.querySelector(optTagsListSelector);
+  const tagList = document.querySelector(opts.tagsListSelector);
 
   /*[NEW]create variable for all links HTML code*/
   const tagsParams = calculateTagsParams(allTags);
@@ -209,7 +207,7 @@ function generateTags() {
     const tagLinkHTML = calculateTagClass(allTags[tag], tagsParams);
     console.log('taglinkHTML:', tagLinkHTML);
 
-    const tagLinkHTML = '<li>' + calculateTagClass(allTags[tag], tagsParam)+ '</li>';
+    const tagLinkHTML = '<li>' + calculateTagClass(allTags[tag], tagsParams)+ '</li>';
     console.log('tagLinkHTML:', tagLinkHTML);
 
     /* [NEW] END LOOP: for each tag in allTags */
