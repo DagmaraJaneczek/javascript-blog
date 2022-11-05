@@ -70,6 +70,15 @@ function calculateTagsParams(tags) {
 
 // Calculate tag class -wybieramy klase dla tagu:
 
+function calculateTagClass(count, params){
+
+  const normalizedCount = count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+  console.log('classNumber');
+  return optCloudClassPrefix + classNumber;
+}
 
 //Generating Title List -generujemy liste tytolow:
 
@@ -194,7 +203,14 @@ function generateTags() {
   for(let tag in allTags) {
 
     /* [NEW] generete code of link and add it to allTagsHTML*/
-    allTagsHTML += tag + '(' + allTags[tag] + ')';
+    //allTagsHTML += tag + '(' + allTags[tag] + ')'; -zmirniamy ta linie kodu na:
+    allTagsHTML += tagLinkHTML;
+
+    const tagLinkHTML = calculateTagClass(allTags[tag], tagsParams);
+    console.log('taglinkHTML:', tagLinkHTML);
+
+    const tagLinkHTML = '<li>' + calculateTagClass(allTags[tag], tagsParam)+ '</li>';
+    console.log('tagLinkHTML:', tagLinkHTML);
 
     /* [NEW] END LOOP: for each tag in allTags */
   }
