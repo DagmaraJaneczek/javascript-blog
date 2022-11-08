@@ -177,7 +177,7 @@ function generateTags() {
         //wykrzyknik czytamy jako negacje czyli: "jesli allTags NIE MA(!) klucza tag"
 
         /* [NEW] add tag to allTags object */
-        allTags[tag] - 1;
+        allTags[tag] = 1;
       } else{
         allTags[tag]++;  //jesli ten tag znajduje sie w allTags,zwiekszamy licznik wystapien o jeden
       }
