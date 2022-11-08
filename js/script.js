@@ -201,15 +201,12 @@ function generateTags() {
   for(let tag in allTags) {
 
     /* [NEW] generete code of link and add it to allTagsHTML*/
-    //allTagsHTML += tag + '(' + allTags[tag] + ')'; -zmirniamy ta linie kodu na:
+    //allTagsHTML += tag + '(' + allTags[tag] + ')'; -zmieniamy ta linie kodu na:
     allTagsHTML += tagLinkHTML;
 
-    const tagLinkHTML = calculateTagClass(allTags[tag], tagsParams);
-    console.log('taglinkHTML:', tagLinkHTML);
-
-    const tagLinkHTML = '<li>' + calculateTagClass(allTags[tag], tagsParams)+ '</li>';
-    console.log('tagLinkHTML:', tagLinkHTML);
-
+    const tagLinkHTML = '<a href="#tag-'+ tag + '" class="' + calculateTagClass(allTags[tag], tagsParams)
+    + '">' + tag + ' (' + allTags[tag] + ') </a></li>';
+    console.log(tagLinkHTML);
     /* [NEW] END LOOP: for each tag in allTags */
   }
   /* [NEW] add html from allTagsHTML to tagList */
@@ -300,7 +297,7 @@ addClickListenersToTags();
 function generateAuthors() {
 
   /*  find all articles */
-  const articles = document.querySelectorAll(optArticleSelector);
+  const articles = document.querySelectorAll(opts.articleSelector);
 
   /*  START LOOP: for every article: */
 
@@ -308,7 +305,7 @@ function generateAuthors() {
 
     /*  find author wrapper */
 
-    const authorWrapper = article.querySelector(optArticleAuthorSelector);
+    const authorWrapper = article.querySelector(opts.articleAuthorSelector);
     authorWrapper.innerHTML = html;
 
     /*  make html variable with empty string */
