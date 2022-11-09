@@ -330,6 +330,7 @@
                         </p>
                     </div>
                     <div class="post-tags">
+
                         <p><strong>Tags:</strong></p>
                         <ul class="list list-horizontal">
                         </ul>
@@ -373,14 +374,50 @@
     </div>
 <!--Szablon Handlebars-->
     <script id="template-article-link" type="text/x-handlebars-template">
-      <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
+      <li>
+        <a href="#{{ id }}">
+            <span>{{ title }}</span>
+        </a>
+    </li>
     </script>
+
+    <script id="template-article-tag-link" type="text/x-handlebars-template">
+        <li>
+          <a href="#{{ id }}">
+              <span>{{ title }}</span>
+          </a>
+      </li>
+      </script>
+
+      <script id="template-author-link" type="text/x-handlebars-template">
+        <li>
+          <a href="#{{ id }}">
+              <span>{{ title }}</span>
+          </a>
+      </li>
+      </script>
+
     <script id="template-tag-cloud-link" type="text/x-handlebars-template">
       {{#each tags}}
-      <li>{{ tag }}</li>
+      <li>
+        <a href="#tag-{{ tag }}" class="{{ className}}">
+            <span>{{ tag }} ({{count}})</span>
+        </a>
+      </li>
       {{/each}}
     </script>
-<!--Dodajemy Handlebars tylko raz, niezaleznie od islosci uzytych szablonow-->
+
+    <script id="template-author-cloud-link" type="text/x-handlebars-template">
+      {{#each tags}}
+      <li>
+        <a href="#author-{{ author }}" class="{{ className}}">
+            <span>{{ author }} ({{count}})</span>
+        </a>
+      </li>
+      {{/each}}
+    </script>
+
+    <!--Dodajemy Handlebars tylko raz, niezaleznie od islosci uzytych szablonow-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
     <script src="js/script.js"></script>
 </body>

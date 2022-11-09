@@ -2,7 +2,10 @@
 
 const templates = {
   articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
-  tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML)
+  articleTagLink: Handlebars.compile(document.querySelector('#template-article-tag-link').innerHTML),
+  authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
+  tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
+  authorCludLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML)
 };
 
 
