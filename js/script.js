@@ -346,7 +346,19 @@ function generateAuthors() {
     /* END LOOP: for each tag */
   }
   /* [DONE] insert HTML of all the links into the tags wrapper */
-
+  const authorRightList = document.querySelector(opts.authorsListSelector);
+  //let allTagsHTML = '';
+  const allAuthorData = { authors: []};
+  /* [NEW] generete code of link and add it to allTagsHTML*/
+  //allTagsHTML += tag + '(' + allTags[tag] + ')'; -zmieniamy ta linie kodu na:
+  //allTagsHTML += tagLinkHTML;
+  for (let author in authorRightBar) {
+    allAuthorData.authors.push({author: author, count: authorRightBar[author]});
+    /* [NEW] END LOOP: for each tag in allTags */
+  }
+  /* [NEW] add html from allTagsHTML to tagList */
+  //tagList.innerHTML - allTagsHTML;
+  authorRightList.innerHTML = templates.authorCludLink(allAuthorData);
 }
 generateAuthors();
 
