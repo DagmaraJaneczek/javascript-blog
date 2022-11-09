@@ -18,7 +18,8 @@ const opts = {
   articleAuthorSelector: '.post-author',
   tagsListSelector: '.tags .list',
   cloudClassCount: 5,
-  cloudClassPrefix: 'tag-size-'
+  cloudClassPrefix: 'tag-size-',
+  authorsListSelector: '.list .authors'
 };
 
 
@@ -90,7 +91,7 @@ function generateTitleLinks() {
     console.log(linkHTML);
 
     /*[DONE] insert link into titleList */
-    html = html +linkHTML;
+    html = html + linkHTML;
   }
   console.log(html);
 
@@ -314,6 +315,7 @@ addClickListenersToTags();
 
 function generateAuthors() {
 
+  let authorRightBar = {};
   /*  find all articles */
   const articles = document.querySelectorAll(opts.articleSelector);
 
@@ -322,23 +324,29 @@ function generateAuthors() {
   for (let article of articles) {
 
     /*  find author wrapper */
-
     const authorWrapper = article.querySelector(opts.articleAuthorSelector);
-    authorWrapper.innerHTML = html;
-
     /*  make html variable with empty string */
-
     let html ='';
 
     /*  get author from data-author attribute */
-
     const articleAuthor  = article.getAttribute('data-author');
     console.log(articleAuthor);
 
-    /* [DONE] insert HTML of all the links into the tags wrapper */
+    /* [NEW] check if this link is NOT already in allTags */
+    const linkToHTMLData = {id: authorWrapper, title: articleAuthor};
+    const linkToHTM = templates.authorLink(linkToHTMLData);
+    html = html + linkToHTM;
+
+    if(!authorRightBar.hasOwnProperty(articleAuthor)){
+      authorRightBar[articleAuthor] = 1;
+    } else {
+      authorRightBar[articleAuthor]++;  //jesli ten tag znajduje sie w allTags,zwiekszamy licznik wystapien o jeden
+    }
     authorWrapper.innerHTML = html;
-  /* [DONE] END LOOP: for every article: */
+    /* END LOOP: for each tag */
   }
+  /* [DONE] insert HTML of all the links into the tags wrapper */
+
 }
 generateAuthors();
 
