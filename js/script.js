@@ -16,10 +16,10 @@ const opts = {
   titleListSelector: '.titles',
   articleTagsSelector: '.post-tags .list',
   articleAuthorSelector: '.post-author',
-  tagsListSelector: '.tags .list',
+  tagsListSelector: '.tags.list',
   cloudClassCount: 5,
   cloudClassPrefix: 'tag-size-',
-  authorsListSelector: '.list .authors'
+  authorsListSelector: '.list.authors'
 };
 
 
@@ -290,7 +290,7 @@ function tagClickHandler(event) {
 function addClickListenersToTags() {
   /* [DONE] find all links to tags */
 
-  const allLinksToTags = document.querySelectorAll('a.[href^="#tag-"]');
+  const allLinksToTags = document.querySelectorAll('a[href^="#tag-"]');
 
   /* [DONE] START LOOP: for each link */
 
@@ -425,7 +425,7 @@ function authorClickHandler(event) {
 function addClickListenersToAuthors() {
   /* [DONE] find all links to tags */
 
-  const authorLinks= document.querySelectorAll('a.[href^="#author-"]');
+  const authorLinks= document.querySelectorAll('a[href^="#author-"]');
 
   /* [DONE] START LOOP: for each link */
 
