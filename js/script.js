@@ -64,14 +64,14 @@ function titleClickHandler(event) {
 
 //Generating Title List -generujemy liste tytolow:
 
-function generateTitleLinks() {
+function generateTitleLinks(customSelector = '') {
 
   /* [DONE] remove contents of titleList */
   const titleList = document.querySelector(opts.titleListSelector);
   titleList.innerHTML = '';
 
   /*[DONE] for each article */
-  const articles = document.querySelectorAll(opts.articleSelector);
+  const articles = document.querySelectorAll(opts.articleSelector + customSelector);
 
   let html ='';
 
@@ -178,7 +178,7 @@ function generateTags() {
 
       /* [DONE] generate HTML of the link */
 
-      const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      const linkHTML = templates.articleTagLink({ tag: tag });
       //<li><a href="#tag-rice">rice</a></li>
       console.log(linkHTML);
 
@@ -222,9 +222,6 @@ function generateTags() {
       count: allTags[tag],
       className: calculateTagClass(allTags[tag], tagsParams)
     });
-    const tagLinkHTML = '<a href="#tag-'+ tag + '" class="' + calculateTagClass(allTags[tag], tagsParams)
-    + '">' + tag + ' (' + allTags[tag] + ') </a></li>';
-    console.log(tagLinkHTML);
     /* [NEW] END LOOP: for each tag in allTags */
   }
   /* [NEW] add html from allTagsHTML to tagList */
@@ -333,7 +330,7 @@ function generateAuthors() {
     console.log(articleAuthor);
 
     /* [NEW] check if this link is NOT already in allTags */
-    const linkToHTMLData = {id: authorWrapper, title: articleAuthor};
+    const linkToHTMLData = { author: articleAuthor };
     const linkToHTM = templates.authorLink(linkToHTMLData);
     html = html + linkToHTM;
 
@@ -353,7 +350,7 @@ function generateAuthors() {
   //allTagsHTML += tag + '(' + allTags[tag] + ')'; -zmieniamy ta linie kodu na:
   //allTagsHTML += tagLinkHTML;
   for (let author in authorRightBar) {
-    allAuthorData.authors.push({author: author, count: authorRightBar[author]});
+    allAuthorData.authors.push({author: author});
     /* [NEW] END LOOP: for each tag in allTags */
   }
   /* [NEW] add html from allTagsHTML to tagList */
